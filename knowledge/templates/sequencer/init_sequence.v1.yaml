@@ -1,0 +1,32 @@
+template_id: sequence.init.v1
+agent: SeqAgent
+domain: sequencer
+ue_version: '5.5'
+description: Create a Level Sequence with explicit FPS and playback range.
+operation_type: sequence.init
+inputs_schema:
+  sequence_path: str
+  fps: int
+  start_frame: int
+  end_frame: int
+preconditions: []
+postconditions:
+- sequence_exists
+safety:
+  allowed_imports:
+  - cineu_sequence_ops
+  - cineu_verify_ops
+rollback:
+  delete_sequence: true
+script: 'from cineu_sequence_ops import create_level_sequence
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = create_level_sequence(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

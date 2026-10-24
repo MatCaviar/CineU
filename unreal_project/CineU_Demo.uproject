@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.5",
+  "Category": "Research",
+  "Description": "CineU research demo Unreal project placeholder",
+  "Plugins": [
+    {"Name": "PythonScriptPlugin", "Enabled": true},
+    {"Name": "EditorScriptingUtilities", "Enabled": true},
+    {"Name": "MovieRenderPipeline", "Enabled": true},
+    {"Name": "SequencerScripting", "Enabled": true},
+    {"Name": "CineUDemo", "Enabled": true}
+  ]
+}

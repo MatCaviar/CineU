@@ -1,0 +1,30 @@
+template_id: spatial.apply_transforms.v1
+agent: SpatialAgent
+domain: spatial
+ue_version: '5.5'
+description: Apply physics-aware transforms calculated from AABB constraints.
+operation_type: spatial.apply_transforms
+inputs_schema:
+  placements: list
+preconditions:
+- actors_exist
+postconditions:
+- actors_transformed
+- relations
+safety:
+  allowed_imports:
+  - cineu_world_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_world_ops import apply_actor_transforms
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = apply_actor_transforms(PARAMS["inputs"]["placements"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

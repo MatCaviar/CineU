@@ -1,0 +1,33 @@
+template_id: render.preview.v1
+agent: RenderAgent
+domain: render
+ue_version: '5.5'
+description: Render a preview frame/video through the configured backend.
+operation_type: render.preview
+inputs_schema:
+  sequence_path: str
+  output_dir: str
+  world_state_path: str
+  resolution: list
+preconditions:
+- sequence_exists
+- camera_cut_track_exists
+postconditions:
+- render_artifacts_exist
+safety:
+  allowed_imports:
+  - cineu_render_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_render_ops import render_preview
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = render_preview(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

@@ -1,0 +1,35 @@
+{
+  "schema_version": "cineu.api_signatures.v1",
+  "ue_version": "5.5",
+  "scope": "CineUDemo Python wrapper surface",
+  "note": "This catalog constrains template-generation and documents the stable wrapper API. Real UE minor versions may require project-specific channel binding changes.",
+  "modules": {
+    "cineu_world_ops": {
+      "setup_environment": {"inputs": {"level_name": "str", "environment": "str", "mood": "str"}, "returns": "dict"},
+      "spawn_many_actors": {"inputs": {"actors": "list[dict]"}, "returns": "dict"},
+      "apply_actor_transforms": {"inputs": {"placements": "list[dict]"}, "returns": "dict"}
+    },
+    "cineu_asset_ops": {
+      "import_assets": {"inputs": {"assets": "list[dict]"}, "returns": "dict with assets records and imported_assets ids"},
+      "load_asset_checked": {"inputs": {"asset_path": "str"}, "returns": "Unreal asset"},
+      "asset_exists": {"inputs": {"asset_path": "str"}, "returns": "bool"}
+    },
+    "cineu_sequence_ops": {
+      "create_level_sequence": {"inputs": {"sequence_path": "str", "fps": "int", "start_frame": "int", "end_frame": "int"}, "returns": "dict"},
+      "add_transform_tracks": {"inputs": {"sequence_path": "str", "tracks": "list[dict]"}, "returns": "dict"},
+      "add_camera_cuts": {"inputs": {"sequence_path": "str", "cuts": "list[dict]"}, "returns": "dict"}
+    },
+    "cineu_camera_ops": {
+      "create_camera_shot": {"inputs": {"sequence_path": "str", "camera_name": "str", "keys": "list[dict]"}, "returns": "dict"}
+    },
+    "cineu_anim_ops": {
+      "add_animation_tracks": {"inputs": {"sequence_path": "str", "clips": "list[dict]"}, "returns": "dict"}
+    },
+    "cineu_render_ops": {
+      "render_preview": {"inputs": {"sequence_path": "str", "output_dir": "str", "world_state_path": "str|null", "resolution": "list[int]"}, "returns": "dict with preview_camera plus artifacts.preview_frame.png, artifacts.preview_manifest.json, storyboard_manifest.json; host runner adds sequence_preview.gif animatic from storyboard frames"}
+    },
+    "cineu_verify_ops": {
+      "dump_world_state_to_file": {"inputs": {"path": "str", "params": "dict|null", "output": "dict|null", "result": "dict|null"}, "returns": "dict"}
+    }
+  }
+}

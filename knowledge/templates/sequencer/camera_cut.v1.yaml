@@ -1,0 +1,31 @@
+template_id: sequence.camera_cut.v1
+agent: SeqAgent
+domain: sequencer
+ue_version: '5.5'
+description: Add camera cut sections with no gap/no overlap validation boundaries.
+operation_type: sequence.camera_cut
+inputs_schema:
+  sequence_path: str
+  cuts: list
+preconditions:
+- sequence_exists
+- cameras_exist
+postconditions:
+- camera_cut_no_gaps
+safety:
+  allowed_imports:
+  - cineu_sequence_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_sequence_ops import add_camera_cuts
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = add_camera_cuts(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

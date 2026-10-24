@@ -1,0 +1,28 @@
+template_id: catalog.spatial.compute_aabb.v1
+agent: SpatialAgent
+domain: catalog.spatial
+ue_version: '5.5'
+description: Catalog scaffold for spatial.compute_aabb; safe metadata entry for extending
+  the research template library.
+operation_type: catalog.spatial.compute_aabb
+inputs_schema:
+  payload: dict
+preconditions: []
+postconditions: []
+safety:
+  allowed_imports:
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  # Catalog scaffold template. Runtime integration for this operation type is project-specific.
+
+  OUTPUT = {"template_id": PARAMS["op_id"], "operation_type": PARAMS["operation_type"],
+  "scaffold": True}
+
+  dump_world_state_to_file(PARAMS["context"].get("world_state_path", ""))
+
+  '

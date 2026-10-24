@@ -1,0 +1,33 @@
+template_id: camera.static_shot.v1
+agent: CamAgent
+domain: camera
+ue_version: '5.5'
+description: Create a camera shot with deterministic transform and lens keys.
+operation_type: camera.static_shot
+inputs_schema:
+  sequence_path: str
+  camera_name: str
+  target_actor: str
+  keys: list
+preconditions:
+- sequence_exists
+postconditions:
+- cameras_exist
+safety:
+  allowed_imports:
+  - cineu_camera_ops
+  - cineu_verify_ops
+rollback:
+  delete_created_camera: true
+script: 'from cineu_camera_ops import create_camera_shot
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = create_camera_shot(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

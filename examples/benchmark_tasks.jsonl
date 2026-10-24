@@ -1,0 +1,8 @@
+{"name":"gallery_tour_cn","prompt":"创建一个现代画廊场景，入口处有三幅画，中间有一个雕塑。相机从入口平滑推进到雕塑前，最后切到广角俯拍展示整个大厅。"}
+{"name":"zebra_hitchcock_cn","prompt":"创建黄昏沙漠场景，一只斑马从左到右移动。镜头对斑马做 Hitchcock zoom，保持主体大小近似不变。"}
+{"name":"gallery_tour_en","prompt":"Create a modern gallery scene with three paintings on the wall and a sculpture in the center. Dolly the camera toward the sculpture, then cut to a wide aerial shot."}
+{"name":"desert_hitchcock_en","prompt":"Create a dusk desert scene with a zebra moving from left to right. Use a Hitchcock zoom that keeps the zebra's screen size approximately constant."}
+{"name":"gallery_wide_cn","prompt":"生成一个简洁白色画廊，墙上有三幅画，中央一个雕塑，先推轨靠近雕塑，再切到高处广角展示整体空间。"}
+{"name":"zebra_motion_cn","prompt":"在沙漠黄昏环境中放置一只斑马，让它沿水平路径移动，并用变焦推轨镜头拍摄。"}
+{"name":"gallery_static_variant","prompt":"Create a clean modern gallery with paintings and a center sculpture. Use a cinematic dolly-in shot and a final wide overhead view."}
+{"name":"zebra_hitchcock_variant","prompt":"A zebra crosses a desert floor at sunset; the camera performs a coupled dolly-zoom / Hitchcock zoom while tracking the subject."}

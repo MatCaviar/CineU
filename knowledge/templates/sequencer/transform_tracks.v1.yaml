@@ -1,0 +1,33 @@
+template_id: transform.add_tracks.v1
+agent: TransAgent
+domain: sequencer.transform
+ue_version: '5.5'
+description: Add actor transform keyframes synchronized on the shared Level Sequence
+  timeline.
+operation_type: transform.add_tracks
+inputs_schema:
+  sequence_path: str
+  tracks: list
+preconditions:
+- sequence_exists
+- actors_exist
+postconditions:
+- transform_tracks
+- motion_alignment
+safety:
+  allowed_imports:
+  - cineu_sequence_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_sequence_ops import add_transform_tracks
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = add_transform_tracks(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

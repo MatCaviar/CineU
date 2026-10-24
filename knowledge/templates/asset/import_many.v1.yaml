@@ -1,0 +1,29 @@
+template_id: asset.import_many.v1
+agent: AssetAgent
+domain: asset
+ue_version: '5.5'
+description: Import file-backed source assets into the CineU Unreal project before spawning actors.
+operation_type: asset.import_many
+inputs_schema:
+  assets: list
+preconditions:
+- source_assets_exist
+postconditions:
+- assets_imported
+safety:
+  allowed_imports:
+  - cineu_asset_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_asset_ops import import_assets
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = import_assets(PARAMS["inputs"]["assets"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cineu-research-system"
+version = "0.3.1"
+description = "Asset-first planning, Unreal Engine orchestration, Sequencer and rendering research pipeline."
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.5",
+  "PyYAML>=6.0",
+  "typer>=0.9",
+  "Pillow>=10.0",
+  "numpy>=1.24",
+  "imageio>=2.34",
+  "imageio-ffmpeg>=0.5"
+]
+
+[project.scripts]
+cineu-demo = "cineu_demo.cli:app"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["cineu_demo*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

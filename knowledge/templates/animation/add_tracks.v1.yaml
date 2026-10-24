@@ -1,0 +1,31 @@
+template_id: animation.add_tracks.v1
+agent: AnimAgent
+domain: animation
+ue_version: '5.5'
+description: Add skeletal animation track placeholders with shared timeline timing.
+operation_type: animation.add_tracks
+inputs_schema:
+  sequence_path: str
+  clips: list
+preconditions:
+- sequence_exists
+- actors_exist
+postconditions:
+- animation_tracks
+safety:
+  allowed_imports:
+  - cineu_anim_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_anim_ops import add_animation_tracks
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = add_animation_tracks(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

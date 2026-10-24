@@ -1,0 +1,31 @@
+template_id: env.setup.v1
+agent: EnvAgent
+domain: env
+ue_version: '5.5'
+description: Create/open a level and configure deterministic demo environment context.
+operation_type: env.setup
+inputs_schema:
+  level_name: str
+  environment: str
+  mood: str
+preconditions: []
+postconditions:
+- level_exists
+- support_surfaces_min
+safety:
+  allowed_imports:
+  - cineu_world_ops
+  - cineu_verify_ops
+rollback: {}
+script: 'from cineu_world_ops import setup_environment
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = setup_environment(PARAMS["inputs"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '

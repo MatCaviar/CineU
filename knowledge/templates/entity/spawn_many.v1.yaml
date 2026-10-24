@@ -1,0 +1,30 @@
+template_id: entity.spawn_many.v1
+agent: EntityAgent
+domain: entity
+ue_version: '5.5'
+description: Spawn one or more static/skeletal mesh actors using verified asset paths.
+operation_type: entity.spawn_many
+inputs_schema:
+  actors: list
+preconditions:
+- assets_resolved
+postconditions:
+- actors_exist
+safety:
+  allowed_imports:
+  - cineu_world_ops
+  - cineu_verify_ops
+rollback:
+  delete_actors: true
+script: 'from cineu_world_ops import spawn_many_actors
+
+  from cineu_verify_ops import dump_world_state_to_file
+
+
+  PARAMS = {{ params_json }}
+
+  OUTPUT = spawn_many_actors(PARAMS["inputs"]["actors"])
+
+  dump_world_state_to_file(PARAMS["context"]["world_state_path"], PARAMS, OUTPUT)
+
+  '
